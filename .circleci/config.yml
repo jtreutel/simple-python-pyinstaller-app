@@ -27,6 +27,7 @@ jobs:
       - checkout
       - run:
           name: Deliver build
+          shell: /bin/sh -eo --login pipefail
           command: |
             whoami
             pwd
