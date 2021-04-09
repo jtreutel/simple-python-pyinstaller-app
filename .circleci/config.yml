@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Deliver build
-          shell: /bin/sh -eo --login pipefail
+          shell: /bin/sh --login -eo pipefail #pyenv relies on changes to path stored in bashrc, so we need a login shell
           command: |
             whoami
             pwd
