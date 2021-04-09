@@ -31,6 +31,7 @@ jobs:
             whoami
             pwd
             ls -al ~/.pyenv/shims/
+            pip
             pyinstaller --onefile sources/add2vals.py
       - store_artifacts:
           path: dist/add2vals
