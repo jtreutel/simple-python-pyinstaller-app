@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     docker:
@@ -6,6 +7,7 @@ jobs:
     steps:
       - checkout
       - run: python -m py_compile sources/add2vals.py sources/calc.py
+
   test:
     docker:
       - image: qnib/pytest
@@ -14,6 +16,7 @@ jobs:
       - run: py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py
       - store_test_results:
           path: test-reports
+
   deliver:
     docker:
       - image: cdrx/pyinstaller-linux:python2
@@ -35,10 +38,6 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - test
       - deliver:
           requires:
-            - hold
+            - test
