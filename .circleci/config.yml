@@ -7,22 +7,21 @@ jobs:
     steps:
       - checkout
       - run: python -m py_compile sources/add2vals.py sources/calc.py
-
   test:
-    docker:
+    docker: 
       - image: qnib/pytest
     steps:
       - checkout
       - run: py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py
       - store_test_results:
           path: test-reports
-
   deliver:
-    docker:
+    docker: 
       - image: cdrx/pyinstaller-linux:python2
-    steps:
+    steps: 
       - checkout
       - run:
+          name: Deliver application
           command: |
             PATH="$PATH:/root/.pyenv/shims:/root/.pyenv/bin"
             pyinstaller --onefile sources/add2vals.py
@@ -41,3 +40,5 @@ workflows:
       - deliver:
           requires:
             - test
+
+            
